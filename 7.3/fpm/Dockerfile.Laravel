@@ -1,0 +1,3 @@
+FROM weef/php:7.3-fpm
+
+RUN sudo composer global require laravel/installer
