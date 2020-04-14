@@ -2,7 +2,6 @@ FROM php:7.3-fpm
 
 ARG DEFAULT_USER_ID=1000
 ARG DEFAULT_GROUP_ID=1000
-ARG PHPDOC_PEAR_URL="https://pear.phpdoc.org/get/phpDocumentor-2.9.0.tgz"
 ARG PHPDOC_PHAR_URL="https://github.com/phpDocumentor/phpDocumentor2/releases/download/v2.9.0/phpDocumentor.phar"
 
 RUN apt-get update -y && apt-get install -y sudo unzip libmcrypt-dev libzip-dev wget git gcc make autoconf \
@@ -11,10 +10,7 @@ RUN apt-get update -y && apt-get install -y sudo unzip libmcrypt-dev libzip-dev 
 
 RUN pecl channel-update pecl.php.net
 
-RUN wget https://pear.phpdoc.org/channel.xml && pear channel-add ./channel.xml && \
-    pear install "$PHPDOC_PEAR_URL" && \
-    wget "$PHPDOC_PHAR_URL" -P /usr/local/bin -O phpdoc && \
-    chmod +x /usr/local/bin/phpdoc
+RUN curl -o /usr/local/bin/phpdoc -L "$PHPDOC_PHAR_URL"&& chmod +x /usr/local/bin/phpdoc
 
 RUN docker-php-ext-install bcmath bz2 dom gd gettext hash intl json mbstring mysqli pdo pdo_mysql pdo_pgsql pgsql phar \
     posix simplexml soap xml xmlrpc xmlwriter zip
