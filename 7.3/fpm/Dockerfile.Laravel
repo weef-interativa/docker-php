@@ -2,4 +2,4 @@ FROM weef/php:7.3-fpm
 
 RUN sudo composer global require laravel/installer
 
-RUN sudo mkdir -p /var/www/.config && sudo chown -R www-data:www-data /var/www/.config
+RUN sudo mkdir -p /var/www/.config /var/www/.composer && sudo chown -R www-data:www-data /var/www/.config /var/www/.composer

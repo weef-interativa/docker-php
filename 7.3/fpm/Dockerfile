@@ -10,6 +10,8 @@ RUN apt-get update -y && apt-get install -y sudo unzip libmcrypt-dev libzip-dev 
 
 RUN pecl channel-update pecl.php.net
 
+COPY php.ini-development /usr/local/etc/php/php.ini
+
 RUN curl -o /usr/local/bin/phpdoc -L "$PHPDOC_PHAR_URL"&& chmod +x /usr/local/bin/phpdoc
 
 RUN docker-php-ext-install bcmath bz2 dom gd gettext hash intl json mbstring mysqli pdo pdo_mysql pdo_pgsql pgsql phar \
@@ -35,5 +37,7 @@ RUN usermod -aG sudo www-data && \
     usermod -aG root www-data && \
     usermod -u $DEFAULT_USER_ID www-data && \
     echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
+VOLUME /usr/local/etc/php
 
 USER www-data
