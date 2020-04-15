@@ -7,18 +7,18 @@
 Esse repositorio armazena o codigo-fonte do arquivo de construcao das imagens do PHP e PHP para o Laravel, para uso
 com o Docker.
 
-* [Caracteristicas](#Caracteristicas)
-  * [PHP](#PHP)
-  * [Laravel](#Laravel)
-* [Dockerfiles](#Tags e respectivos Dockerfile)
-* [Construindo as imagens](#Construindo as imagens)
-* [Usando as imagens (sem orquestracao)]()
+* [Caracteristicas](#caracteristicas)
+  * [PHP](#imagem-base)
+  * [Laravel](#laravel)
+* [Dockerfiles](#tags-e-dockerfiles)
+* [Construindo as imagens](#construindo-as-imagens)
+* [Usando as imagens (sem orquestracao)](#usando-as-imagens)
 
 ## Caracteristicas
 
-### PHP
+### Imagem base
 
-As imagens contam com:
+A imagem base conta com:
 
 * O ID/GID do usuario www-data foi definido como 1000:1000;
 * O arquivo php.ini esta configurado para ambientes de desenvolvimento;
@@ -68,7 +68,7 @@ A imagem conta com:
 * As pastas de cache e configuracao criadas;
 * [Laravel](https://laravel.com/docs/) instalado de forma global com o Composer;
 
-## Tags e respectivos Dockerfile
+## Tags e Dockerfiles
 
 * 7.3
   * [7.3-fpm](7.3/fpm/Dockerfile)
