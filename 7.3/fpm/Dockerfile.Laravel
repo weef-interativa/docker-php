@@ -1,5 +1,10 @@
 FROM weef/php:7.3-fpm
 
-RUN sudo composer global require laravel/installer
+USER root
 
-RUN sudo mkdir -p /var/www/.config /var/www/.composer && sudo chown -R www-data:www-data /var/www/.config /var/www/.composer
+RUN mkdir -p /var/www/.config && chown -R www-data:www-data /var/www/.config
+
+RUN composer global require laravel/installer
+
+USER www-data
+
