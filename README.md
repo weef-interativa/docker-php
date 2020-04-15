@@ -1,11 +1,22 @@
 # Docker - PHP
 
+![Docker Pulls](https://img.shields.io/docker/pulls/weef/php.svg)
+![Docker Automated](https://img.shields.io/docker/automated/weef/php.svg)
+![Docker Build](https://img.shields.io/docker/build/weef/php.svg)
+
 Esse repositorio armazena o codigo-fonte do arquivo de construcao das imagens do PHP e PHP para o Laravel, para uso
 com o Docker.
 
-# Caracteristicas
+* [Caracteristicas](#Caracteristicas)
+  * [PHP](#PHP)
+  * [Laravel](#Laravel)
+* [Dockerfiles](#Tags e respectivos Dockerfile)
+* [Construindo as imagens](#Construindo as imagens)
+* [Usando as imagens (sem orquestracao)]()
 
-## PHP
+## Caracteristicas
+
+### PHP
 
 As imagens contam com:
 
@@ -50,16 +61,49 @@ As imagens contam com:
   * imagick
   * mcrypt
   
-## Laravel
+### Laravel
 
 A imagem conta com:
 
 * As pastas de cache e configuracao criadas;
 * [Laravel](https://laravel.com/docs/) instalado de forma global com o Composer;
 
-# Tags e respectivos Dockerfile
+## Tags e respectivos Dockerfile
 
 * 7.3
   * [7.3-fpm](7.3/fpm/Dockerfile)
   * [7.3-fpm-laravel](7.3/fpm/Dockerfile.Laravel)
+  
+## Construindo as imagens
+
+Para construir as imagens localmente para testes ou adicao de novas dependencias:
+
+Imagem PHP-FPM
+
+```bash
+docker build -t weef/php:7.3-fpm 7.3/fpm
+```
+
+Imagem PHP-FPM-Laravel
+
+```bash
+docker build -t weef/php:7.3-fpm -f 7.3/fpm/Dockerfile.Laravel 7.3/fpm
+```
+
+## Usando as imagens
+
+Para executar utilizar a imagem:
+
+Exemplos:
+
+```bash
+docker run -it -v fake_webroot_directory:/var/www/html weef/php:7.3-fpm bash
+```
+
+```bash
+docker run -it weef/php:7.3-fpm php -v
+```
+
+
+
   
