@@ -4,8 +4,8 @@
 ![Docker Automated](https://img.shields.io/docker/automated/weef/php.svg)
 ![Docker Build](https://img.shields.io/docker/build/weef/php.svg)
 
-Esse repositorio armazena o codigo-fonte do arquivo de construcao das imagens do PHP e PHP para o Laravel, para uso
-com o Docker.
+Esse repositorio armazena o codigo-fonte do arquivo de construcao das imagens do PHP-FPM, PHP-FPM para o Laravel, e 
+PHP-FPM com base no Linux Alpine, para uso com o Docker.
 
 * [Caracteristicas](#caracteristicas)
   * [PHP](#imagem-base)
@@ -25,20 +25,35 @@ A imagem base conta com:
 * [Composer](http://getcomposer.org/http://getcomposer.org/) globalmente instalado;
 * [phpDocumentor 2.9.0 (phar)](https://www.phpdoc.org/) globalmente instalado;
 * Os seguintes pacotes de sistema:
-  * sudo
-  * unzip 
-  * wget
-  * git
-  * gcc
-  * make
-  * autoconf
-  * pkg-config 
-  * mariadb-client
+  * Debian:
+    * sudo
+    * unzip 
+    * wget
+    * git
+    * gcc
+    * make
+    * autoconf
+    * pkg-config 
+    * mariadb-client
+  * Alpine:
+    * shadow 
+    * libpng-dev
+    * jpeg-dev
+    * libxml2-dev
+    * libxslt-dev
+    * libzip-dev
+    * freetype-dev
+    * postgresql-dev 
+    * libxml2-dev
+    * zlib-dev
+    * icu-dev
+    * gettext-dev
+    
 * Os seguintes pacotes PHP:
-  * bcmath
-  * bz2
+  * bcmath (Somente Debian)
+  * bz2 (Somente Debian)
   * dom
-  * gd
+  * gd (com suporte a PNG, JPG e TrueType)
   * gettext
   * hash
   * intl
@@ -71,8 +86,9 @@ A imagem conta com:
 ## Tags e Dockerfiles
 
 * 7.3
-  * [7.3-fpm](7.3/fpm/Dockerfile)
-  * [7.3-fpm-laravel](7.3/fpm/Dockerfile.Laravel)
+  * [7.3-fpm](7.3/fpm/debian/Dockerfile)
+  * [7.3-fpm-laravel](7.3/fpm/debian/Dockerfile.Laravel)
+  * [7.3-fpm-alpine3.9](7.3/fpm/alpine/3.9/Dockerfile)
   
 ## Construindo as imagens
 

@@ -6,16 +6,18 @@ ARG PHPDOC_PHAR_URL="https://github.com/phpDocumentor/phpDocumentor2/releases/do
 
 RUN apt-get update -y && pecl channel-update pecl.php.net && apt-get install -y sudo unzip wget git gcc make autoconf \
     pkg-config mariadb-client libmcrypt-dev libzip-dev libmagickwand-dev libevent-dev libssl-dev libfreetype6-dev \
-    libwebp-dev libpq-dev libsnmp-dev libxml2-dev libjpeg62-turbo-dev libpng-dev libgmp-dev --no-install-recommends
+    libwebp-dev libjpeg-dev libpq-dev libsnmp-dev libxml2-dev libjpeg62-turbo-dev libpng-dev libgmp-dev --no-install-recommends
 
 COPY php.ini-development /usr/local/etc/php/php.ini
 
 RUN curl -o /usr/local/bin/phpdoc -L "$PHPDOC_PHAR_URL" && chmod +x /usr/local/bin/phpdoc
 
-RUN docker-php-ext-install bcmath bz2 dom gd gettext hash intl json mbstring mysqli pdo pdo_mysql pdo_pgsql pgsql phar \
-    posix simplexml soap xml xmlrpc xmlwriter zip
+RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 
 RUN export CFLAGS="-I/usr/src/php" && docker-php-ext-configure xmlreader && docker-php-ext-install xmlreader
+
+RUN docker-php-ext-install bcmath bz2 dom gd gettext hash intl json mbstring mysqli pdo pdo_mysql pdo_pgsql pgsql phar \
+    posix simplexml soap xml xmlrpc xmlwriter zip
 
 RUN pecl install imagick mcrypt-1.0.2 && docker-php-ext-enable imagick mcrypt
 
