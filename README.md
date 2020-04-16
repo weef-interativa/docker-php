@@ -1,8 +1,8 @@
 # Docker - PHP
 
 ![Docker Pulls](https://img.shields.io/docker/pulls/weef/php.svg)
-![Docker Automated](https://img.shields.io/docker/automated/weef/php.svg)
-![Docker Build](https://img.shields.io/docker/build/weef/php.svg)
+![Docker Automated](https://img.shields.io/docker/cloud/automated/weef/php.svg)
+![Docker Build](https://img.shields.io/docker/cloud/build/weef/php.svg)
 
 Esse repositorio armazena o codigo-fonte do arquivo de construcao das imagens do PHP-FPM, PHP-FPM para o Laravel, e 
 PHP-FPM com base no Linux Alpine, para uso com o Docker.
