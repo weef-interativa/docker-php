@@ -5,6 +5,8 @@ ENV CFLAGS="-I/usr/src/php"
 RUN apk --update --no-cache add shadow libpng-dev jpeg-dev libxml2-dev libxslt-dev libzip-dev freetype-dev \
   postgresql-dev libxml2-dev zlib-dev icu-dev gettext-dev
 
+COPY php.ini-development /usr/local/etc/php/php.ini
+
 RUN docker-php-ext-configure gd --with-jpeg-dir=/usr/include/ --with-freetype-dir=/usr/include/
 
 RUN docker-php-ext-configure intl --enable-intl
