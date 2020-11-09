@@ -1,17 +1,14 @@
-FROM php:7.4-fpm
+FROM php:7.4-fpm AS BASE
 
 ARG DEFAULT_USER_ID=1000
 ARG DEFAULT_GROUP_ID=1000
-ARG PHPDOC_PHAR_URL="https://github.com/phpDocumentor/phpDocumentor/releases/download/v2.9.1/phpDocumentor.phar"
 
-RUN apt-get update -y && pecl channel-update pecl.php.net && apt-get install -y sudo unzip wget git gcc make \
+RUN apt-get update -y && pecl channel-update pecl.php.net && apt-get install -y unzip wget git gcc make \
  autoconf pkg-config mariadb-client libmcrypt-dev libzip-dev libmagickwand-dev libevent-dev libssl-dev \
  libfreetype6-dev libwebp-dev libjpeg-dev libpq-dev libsnmp-dev libxml2-dev libjpeg62-turbo-dev libpng-dev \
  libgmp-dev libonig-dev --no-install-recommends
 
 COPY php.ini-development /usr/local/etc/php/php.ini
-
-RUN curl -o /usr/local/bin/phpdoc -L "$PHPDOC_PHAR_URL" && chmod +x /usr/local/bin/phpdoc
 
 RUN docker-php-ext-configure gd --with-freetype --with-jpeg
 
@@ -32,11 +29,13 @@ RUN php composer-setup.php && \
 
 RUN chown -R $DEFAULT_USER_ID:$DEFAULT_GROUP_ID /var/www/html
 
-RUN usermod -aG sudo www-data && \
-    usermod -aG root www-data && \
-    usermod -u $DEFAULT_USER_ID www-data && \
-    echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-
 VOLUME /usr/local/etc/php
 
-USER www-data
+FROM BASE as LARAVEL
+
+RUN mkdir -p /var/www/.config /var/www/.composer && \
+  chown -R www-data:www-data /var/www/.config /var/www/.composer
+
+VOLUME /var/www/html
+
+RUN composer global require laravel/installer
